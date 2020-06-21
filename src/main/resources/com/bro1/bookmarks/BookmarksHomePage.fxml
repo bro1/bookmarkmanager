@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.RadioMenuItem?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+     <MenuBar prefWidth="560.0">
+       <menus>
+         <Menu mnemonicParsing="false" text="_File">
+           <items>
+                  <MenuItem mnemonicParsing="false" text="Select Audio" />
+                  <MenuItem mnemonicParsing="false" text="Select Image" />                        
+             
+             <MenuItem mnemonicParsing="true" onAction="#onMenuSave" text="_Save" />
+             <RadioMenuItem fx:id="menuChrome" mnemonicParsing="true" onAction="#onMenuBrowserChrome" selected="true" text="_Chrome">
+                     <toggleGroup>
+                        <ToggleGroup fx:id="browser" />
+                     </toggleGroup>
+             </RadioMenuItem>                    
+             <RadioMenuItem fx:id="menuChromeA" onAction="#onMenuBrowserChromeA" text="Chrome _Anonymous" toggleGroup="$browser" />
+             <RadioMenuItem fx:id="menuFirefox" onAction="#onMenuBrowserFirefox" text="_Firefox" toggleGroup="$browser" />
+             <RadioMenuItem fx:id="menuFirefox" onAction="#onMenuBrowserFirefoxA" text="Firefox _Private" toggleGroup="$browser" />
+             <MenuItem mnemonicParsing="true" onAction="#onMenuExit" text="E_xit" />             
+             <MenuItem mnemonicParsing="true" onAction="#onMenuQuitNoSave" text="_Quit without saving" />
+           </items>
+         </Menu>
+       </menus>
+     </MenuBar>
+      <GridPane VBox.vgrow="ALWAYS">
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints prefHeight="25.0" vgrow="NEVER" />
+            <RowConstraints minHeight="10.0" prefHeight="25.0" vgrow="NEVER" />
+            <RowConstraints minHeight="10.0" prefHeight="25.0" vgrow="NEVER" />
+            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+         <children>      
+            <TextField fx:id="title" disable="true" minWidth="600" onAction="#onTitleAction" promptText="Title" />
+            <TextField fx:id="url" disable="true" minWidth="600" promptText="URL" GridPane.rowIndex="1" />
+            <TextField fx:id="filter" focusTraversable="false" minWidth="600" onAction="#onFilterAction" onKeyReleased="#onFilterKeyReleased" onKeyTyped="#onFilterKeyTyped" promptText="Filter" GridPane.rowIndex="2" />
+            <ScrollPane fx:id="scroll" fitToHeight="true" fitToWidth="true" GridPane.rowIndex="3">
+              <content>
+                  <ListView fx:id="list" minHeight="400.0" minWidth="600.0" />
+              </content>
+            </ScrollPane>
+         </children>
+      </GridPane>
+      <Label text="l: launch, e: edit, u: update, del: delete, a: chrome anonymous, x: exit, s: save, r: random, f: filter" />      
+   </children>
+</VBox>
