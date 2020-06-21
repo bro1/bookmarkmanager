@@ -59,21 +59,18 @@ public class BookmarksHomePageController implements Initializable {
 	public Map<String, List<String>> browsers = new HashMap<>();
 	{
 		browsers.put("chrome anonymous", List.of("google-chrome", "--incognito"));
-		browsers.put("chrome", List.of("google-chrome"));		
+		browsers.put("chrome", List.of("google-chrome"));
 		browsers.put("firefox", List.of("firefox"));
-		browsers.put("firefox private", List.of("firefox", "-private-window"));		
+		browsers.put("firefox private", List.of("firefox", "-private-window"));
 	}
 	
 	public Map<String, List<String>> winBrowsers = new HashMap<>();
 	{
-		browsers.put("chrome anonymous", List.of("C:/Program Files (x86)/Google/Chrome/Application/chrome.exe", "--incognito"));
-		browsers.put("chrome", List.of("C:/Program Files (x86)/Google/Chrome/Application/chrome.exe"));		
-		browsers.put("firefox", List.of("C:/Program Files/Mozilla Firefox/firefox.exe"));
-		browsers.put("firefox private", List.of("c:/Program Files/Mozilla Firefox/firefox.exe", "-private-window"));
-		browsers.put("default",null);		
+		winBrowsers.put("chrome anonymous", List.of("C:/Program Files (x86)/Google/Chrome/Application/chrome.exe", "--incognito"));
+		winBrowsers.put("chrome", List.of("C:/Program Files (x86)/Google/Chrome/Application/chrome.exe"));		
+		winBrowsers.put("firefox", List.of("C:/Program Files/Mozilla Firefox/firefox.exe"));
+		winBrowsers.put("firefox private", List.of("c:/Program Files/Mozilla Firefox/firefox.exe", "-private-window"));
 	}
-	
-	
 	
 	public ObservableList<NameAndURL> data = FXCollections.observableArrayList();
 	FilteredList<NameAndURL> filteredData = new FilteredList<>(data, s -> true);
