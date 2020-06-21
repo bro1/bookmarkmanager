@@ -4,7 +4,7 @@ The default bookmark file is ~/.mybookmarks
 
 But you can specify the file location as a parameter when launching the tool.
 
-![Architecture](doc/bookmarkmanager.svg =x600)		
+![Architecture](doc/bookmarkmanager.svg)		
 
 ## Download
 
