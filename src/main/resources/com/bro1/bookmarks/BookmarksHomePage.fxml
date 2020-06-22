@@ -24,11 +24,12 @@
                   <MenuItem mnemonicParsing="false" text="Select Image" />                        
              
              <MenuItem mnemonicParsing="true" onAction="#onMenuSave" text="_Save" />
-             <RadioMenuItem fx:id="menuChrome" mnemonicParsing="true" onAction="#onMenuBrowserChrome" selected="true" text="_Chrome">
+             <RadioMenuItem fx:id="menuChrome" mnemonicParsing="true" onAction="#onMenuBrowserChrome" text="_Chrome">
                      <toggleGroup>
                         <ToggleGroup fx:id="browser" />
                      </toggleGroup>
-             </RadioMenuItem>                    
+             </RadioMenuItem>
+             <RadioMenuItem fx:id="menuDefaultBrowser" onAction="#onMenuBrowserDefault" text="_Default System Browser" toggleGroup="$browser" selected="true"/>                    
              <RadioMenuItem fx:id="menuChromeA" onAction="#onMenuBrowserChromeA" text="Chrome _Anonymous" toggleGroup="$browser" />
              <RadioMenuItem fx:id="menuFirefox" onAction="#onMenuBrowserFirefox" text="_Firefox" toggleGroup="$browser" />
              <RadioMenuItem fx:id="menuFirefox" onAction="#onMenuBrowserFirefoxA" text="Firefox _Private" toggleGroup="$browser" />

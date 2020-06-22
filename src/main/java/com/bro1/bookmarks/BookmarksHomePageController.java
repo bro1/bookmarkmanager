@@ -1,5 +1,6 @@
 package com.bro1.bookmarks;
 
+import java.awt.Desktop;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
@@ -51,7 +52,7 @@ import javafx.util.Duration;
 public class BookmarksHomePageController implements Initializable {
 	
 	
-	public String currentBrowser = "chrome";
+	public String currentBrowser = "default";
 	
 	
 	
@@ -60,9 +61,18 @@ public class BookmarksHomePageController implements Initializable {
 		browsers.put("chrome anonymous", List.of("google-chrome", "--incognito"));
 		browsers.put("chrome", List.of("google-chrome"));		
 		browsers.put("firefox", List.of("firefox"));
-		browsers.put("firefox private", List.of("firefox", "-private-window"));
-		
+		browsers.put("firefox private", List.of("firefox", "-private-window"));		
 	}
+	
+	public Map<String, List<String>> winBrowsers = new HashMap<>();
+	{
+		browsers.put("chrome anonymous", List.of("C:/Program Files (x86)/Google/Chrome/Application/chrome.exe", "--incognito"));
+		browsers.put("chrome", List.of("C:/Program Files (x86)/Google/Chrome/Application/chrome.exe"));		
+		browsers.put("firefox", List.of("C:/Program Files/Mozilla Firefox/firefox.exe"));
+		browsers.put("firefox private", List.of("c:/Program Files/Mozilla Firefox/firefox.exe", "-private-window"));
+		browsers.put("default",null);		
+	}
+	
 	
 	
 	public ObservableList<NameAndURL> data = FXCollections.observableArrayList();
@@ -121,6 +131,11 @@ public class BookmarksHomePageController implements Initializable {
 	@FXML
 	private void onMenuBrowserChrome(ActionEvent e) {
 		currentBrowser = "chrome";
+	}
+	
+	@FXML
+	private void onMenuBrowserDefault(ActionEvent e) {
+		currentBrowser = "default";
 	}
 	
 	@FXML
@@ -398,14 +413,49 @@ public class BookmarksHomePageController implements Initializable {
 	public void launchBrowser(String targeturl) {
 		List<String> command = new LinkedList<String>();
 		
-		List<String> l = browsers.get(currentBrowser);		
-		command.addAll(l);		
+		String os = System.getProperty("os.name").toLowerCase();				
+		var isWindows = os.indexOf("win") >= 0;
+		var isMac = os.indexOf("mac") >= 0;
+		var isLinuxOrUnix = os.indexOf("nix") >=0 || os.indexOf("nux") >=0;
 		
-		command.add(targeturl);
-		try {
-		  System.out.println(targeturl);
-		  new ProcessBuilder(command).start();                  
-		} catch (Throwable th) {
+		if (currentBrowser.equals("default")) {
+			
+			if (isLinuxOrUnix) {
+				command.add("xdg-open");				
+				command.add(targeturl);
+				
+				try {					
+					new ProcessBuilder(command).start();                  
+				} catch (Throwable t) {
+					t.printStackTrace(System.err);
+				}			
+				
+			} else if (isWindows || isMac) {
+				
+				try {
+					Desktop.getDesktop().browse(new URI(targeturl));
+				} catch (Throwable t) {
+					t.printStackTrace(System.err);				
+				}
+			}
+		} else {		
+			List<String> l = null; 
+			if (isLinuxOrUnix) {
+				l = browsers.get(currentBrowser);		
+			} else if (isWindows) {
+				l = winBrowsers.get(currentBrowser);
+			}
+
+			command.addAll(l);					
+			command.add(targeturl);
+
+			try {
+				  System.out.println(targeturl);
+				  new ProcessBuilder(command).start();                  
+			} catch (Throwable th) {
+				th.printStackTrace(System.err);
+			}
+
 		}
 	}
   
