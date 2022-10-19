@@ -263,10 +263,14 @@ public class BookmarksHomePageController implements Initializable {
 			
 			if (c.equalsIgnoreCase("f")) {
 				filter.requestFocus();
-//				//list.setVisible(false);
-//				list.autosize();
 			}
-			
+
+			if (c.equalsIgnoreCase("n")) {
+				filteredData.setPredicate(s -> {
+					return s.name.isEmpty();
+				});
+
+			}
 			
 			if (c.equalsIgnoreCase("r")) {
 				// random
