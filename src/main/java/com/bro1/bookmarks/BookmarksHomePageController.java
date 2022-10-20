@@ -202,7 +202,13 @@ public class BookmarksHomePageController implements Initializable {
 	        public void updateItem(NameAndURL item, boolean empty) {
 	        		        	
 	            super.updateItem(item, empty);
+	            this.setStyle("");
+	            
 	            if (!empty) {
+	            	if (item.name.contains("#best")) {
+	            		this.setStyle("-fx-control-inner-background: palegreen;");
+	            	}
+	            	
 	            	this.setText(item.toString());	            	
 	            	
 	            } else {
@@ -312,8 +318,19 @@ public class BookmarksHomePageController implements Initializable {
 			}
 
 			
+			if (c.equalsIgnoreCase("b")) {
+				if (item.name.contains("#best" )) {
+					item.name = item.name.replace("#best", "").replace("  ", "").trim();
+				} else {
+					item.name = item.name + " #best";
+				}
+				list.refresh();
+			}
 			
-
+			
+			if (c.equalsIgnoreCase("k")) {
+				launchRandomBest();
+			}
 			
 			
 		});	  
@@ -387,6 +404,29 @@ public class BookmarksHomePageController implements Initializable {
 		}
 	
 	}
+	
+	private void launchRandomBest() {
+
+		
+		FilteredList<NameAndURL> a = data.filtered(s -> {
+			return s.name.toLowerCase().contains("#best");
+		});
+
+		
+		var size = a.size();
+		if (size > 0) {
+			var r = new Random(new Date().getTime());
+			var i = r.nextInt(size);
+			var d = a.get(i);
+			launchBrowser(d.url);
+			
+			list.getSelectionModel().select(d);
+			list.scrollTo(d);
+			
+		}
+	
+	}
+	
 
 	private NameAndURL add(String name, String url) {
 		

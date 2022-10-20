@@ -60,6 +60,6 @@
             </ScrollPane>
          </children>
       </GridPane>
-      <Label text="l: launch, e: edit, u: update, del: delete, a: chrome anonymous, x: exit, s: save, r: random, f: filter" />      
+      <Label text="l: launch, e: edit, u: update, del: delete, a: chrome anonymous, x: exit, s: save, r: random, f: filter; b: toggle best, k: random best" />      
    </children>
 </VBox>

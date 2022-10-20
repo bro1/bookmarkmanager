@@ -2,7 +2,7 @@ module plaintextbookmarksfx {
 	
 	  requires javafx.controls;
 	  requires javafx.fxml;
-	  requires org.apache.commons.text;
+	  requires org.apache.commons.text;	 
 	  requires java.net.http;
 	  requires java.desktop;
 	  
