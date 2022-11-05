@@ -27,6 +27,8 @@ import org.apache.commons.text.StringEscapeUtils;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
+import javafx.beans.binding.Bindings;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -202,11 +204,26 @@ public class BookmarksHomePageController implements Initializable {
 	        public void updateItem(NameAndURL item, boolean empty) {
 	        		        	
 	            super.updateItem(item, empty);
-	            this.setStyle("");
+	            //this.setStyle("");
 	            
 	            if (!empty) {
 	            	if (item.name.contains("#best")) {
-	            		this.setStyle("-fx-control-inner-background: palegreen;");
+	            		//this.setStyle("-fx-control-inner-background: palegreen; ");
+	            		
+	            		this.styleProperty().bind(
+	            			      Bindings
+	            			        .when(this.selectedProperty())
+	            			          .then(
+	            			            new SimpleStringProperty("-fx-control-inner-background: green; -fx-text-fill: darkgreen;")
+	            			          )
+	            			          .otherwise(
+	            			            new SimpleStringProperty("-fx-control-inner-background: palegreen;")
+	            			          )
+	            			    );
+	            		
+	            	} else {
+	            		this.styleProperty().unbind();
+	            		this.setStyle("");
 	            	}
 	            	
 	            	this.setText(item.toString());	            	
