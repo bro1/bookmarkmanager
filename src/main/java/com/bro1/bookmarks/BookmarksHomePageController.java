@@ -204,29 +204,29 @@ public class BookmarksHomePageController implements Initializable {
 	        public void updateItem(NameAndURL item, boolean empty) {
 	        		        	
 	            super.updateItem(item, empty);
-	            //this.setStyle("");
 	            
 	            if (!empty) {
 	            	if (item.name.contains("#best")) {
-	            		//this.setStyle("-fx-control-inner-background: palegreen; ");
-	            		
-	            		this.styleProperty().bind(
-	            			      Bindings
-	            			        .when(this.selectedProperty())
-	            			          .then(
-	            			            new SimpleStringProperty("-fx-control-inner-background: green; -fx-text-fill: darkgreen;")
-	            			          )
-	            			          .otherwise(
-	            			            new SimpleStringProperty("-fx-control-inner-background: palegreen;")
-	            			          )
-	            			    );
-	            		
+//	            		//this.setStyle("-fx-control-inner-background: palegreen; ");
+//	            		
+//	            		this.styleProperty().bind(
+//	            			      Bindings
+//	            			        .when(this.selectedProperty())
+//	            			          .then(
+//	            			            new SimpleStringProperty("-fx-control-inner-background: green; -fx-text-fill: darkgreen;")
+//	            			          )
+//	            			          .otherwise(
+//	            			            new SimpleStringProperty("-fx-control-inner-background: palegreen;")
+//	            			          )
+//	            			    );
+		            	this.setText("***" + item.toString());	        
 	            	} else {
-	            		this.styleProperty().unbind();
-	            		this.setStyle("");
+//	            		this.styleProperty().unbind();
+//	            		this.setStyle("");
+		            	this.setText(item.toString());
 	            	}
 	            	
-	            	this.setText(item.toString());	            	
+    	
 	            	
 	            } else {
 	            	this.setText("");
