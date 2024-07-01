@@ -14,11 +14,13 @@ import java.net.http.HttpClient.Redirect;
 import java.net.http.HttpRequest;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.ResourceBundle;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -27,8 +29,6 @@ import org.apache.commons.text.StringEscapeUtils;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
-import javafx.beans.binding.Bindings;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -75,6 +75,9 @@ public class BookmarksHomePageController implements Initializable {
 	}
 	
 	public ObservableList<NameAndURL> data = FXCollections.observableArrayList();
+	
+	public Set<NameAndURL> tempData = new LinkedHashSet<NameAndURL>();
+	
 	FilteredList<NameAndURL> filteredData = new FilteredList<>(data, s -> true);
 	
 	public Stage myStage;
@@ -400,6 +403,7 @@ public class BookmarksHomePageController implements Initializable {
    	loadFile();
    	
    	
+   	
    	//list.getFocusModel().focus(0);
    	//list.requestFocus();
    	//filter.setFocusTraversable(true);
@@ -444,7 +448,23 @@ public class BookmarksHomePageController implements Initializable {
 	
 	}
 	
+	 
+	
 
+	private NameAndURL addWhileLoading(String name, String url) {
+		
+	
+		var item = new NameAndURL(name, url);
+
+		if (!tempData.contains(item)) {
+			tempData.add(item);			
+		}
+			
+		return item;
+	}
+	
+	
+	
 	private NameAndURL add(String name, String url) {
 		
 		// check for duplicates
@@ -576,8 +596,9 @@ public class BookmarksHomePageController implements Initializable {
 		    	}
 		    	
 		    	if (isurl) {
-		    		add(name, line.trim());		    		
-		    		//data.add(new NameAndURL(name, line.trim()));
+//		    		add(name, line.trim());
+		    		addWhileLoading(name, line.trim());
+//		    		System.out.println(name);
 		    		
 		    		// reset variables
 		    		name="";
@@ -586,6 +607,11 @@ public class BookmarksHomePageController implements Initializable {
 
 		    	
 		    }
+		    
+		    
+		    // after everything is loaded add all entries to the data
+		    data.addAll(tempData);
+		    tempData.clear();
 		  
 		 		  		
 		  
