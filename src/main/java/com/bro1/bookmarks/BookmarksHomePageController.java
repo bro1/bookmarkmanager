@@ -452,7 +452,6 @@ public class BookmarksHomePageController implements Initializable {
 	
 
 	private NameAndURL addWhileLoading(String name, String url) {
-		
 	
 		var item = new NameAndURL(name, url);
 
