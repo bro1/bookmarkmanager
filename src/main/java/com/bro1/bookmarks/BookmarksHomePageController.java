@@ -173,10 +173,23 @@ public class BookmarksHomePageController implements Initializable {
     
     @FXML
     void onFilterKeyTyped(KeyEvent event) {
-    	    	
+
+    	String fstr = filter.getText().toLowerCase();
+    	String[] fa = fstr.split("\\s+");
+    	
 		filteredData.setPredicate(s -> {
-			return s.name.toLowerCase().contains(filter.getText().toLowerCase())
-					|| s.url.toLowerCase().contains(filter.getText().toLowerCase());
+			
+			String ln = s.name.toLowerCase();
+			String ul = s.url.toLowerCase();
+			
+			for (String f : fa) {
+				if (!ln.contains(f) && !ul.contains(f)) {
+					return false;
+				}
+			}
+			
+			return true;
+			
 		});
     }    
 	
